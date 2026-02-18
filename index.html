@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Website Directory</title>
+    <meta name="description" content="A simple modern directory of useful websites" />
+
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #111827;
+            --border: #1f2933;
+            --text: #e5e7eb;
+            --muted: #9ca3af;
+            --accent: #38bdf8;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, sans-serif;
+            background: radial-gradient(1200px 600px at 10% -10%, #1e293b, transparent), var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        header {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 3rem 1.25rem 2rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0 0 0.5rem;
+        }
+
+        p.subtitle {
+            margin: 0;
+            color: var(--muted);
+            max-width: 600px;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 1.25rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.25rem;
+        }
+
+        a.card {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            background: linear-gradient(180deg, #0b1220, var(--card));
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.25rem 1.25rem 1.5rem;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+        }
+
+        a.card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .card h2 {
+            font-size: 1.1rem;
+            margin: 0 0 0.25rem;
+            font-weight: 600;
+        }
+
+        .card p {
+            margin: 0.25rem 0 1rem;
+            font-size: 0.95rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .card .link {
+            font-size: 0.85rem;
+            color: var(--accent);
+            word-break: break-all;
+        }
+
+        footer {
+            max-width: 1100px;
+            margin: 3rem auto 0;
+            padding: 2rem 1.25rem 3rem;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Website Directory</h1>
+        <p class="subtitle">A curated collection of useful tools and resources on the web.</p>
+    </header>
+
+    <main>
+        <div class="grid">
+
+            <a class="card" href="https://fahimfoysal.pro.bd/year-progress" target="_blank" rel="noopener">
+                <h2>Year Progress</h2>
+                <p>See progress of the year.</p>
+                <div class="link">fahimfoysal.pro.bd/year-progress</div>
+            </a>
+
+            <a class="card" href="https://github.com" target="_blank" rel="noopener">
+                <h2>GitHub</h2>
+                <p>Host and collaborate on code repositories.</p>
+                <div class="link">github.com</div>
+            </a>
+
+            <a class="card" href="https://developer.mozilla.org" target="_blank" rel="noopener">
+                <h2>MDN Web Docs</h2>
+                <p>Authoritative documentation for web technologies.</p>
+                <div class="link">developer.mozilla.org</div>
+            </a>
+
+            <a class="card" href="https://supabase.com" target="_blank" rel="noopener">
+                <h2>Supabase</h2>
+                <p>Open source backend with auth, database, and storage.</p>
+                <div class="link">supabase.com</div>
+            </a>
+
+            <a class="card" href="https://vercel.com" target="_blank" rel="noopener">
+                <h2>Vercel</h2>
+                <p>Frontend deployment platform for modern web apps.</p>
+                <div class="link">vercel.com</div>
+            </a>
+
+        </div>
+    </main>
+
+    <footer>
+        © 2026 · Simple directory · Built with plain HTML + CSS
+    </footer>
+
+</body>
+
+</html>
