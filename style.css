@@ -71,6 +71,11 @@ a {
   transition: color 0.3s ease;
 }
 
+.highlight-txt {
+  color: var(--accent);
+  font-weight: 500;
+}
+
 /* Custom Cursor */
 .cursor-dot {
   width: 5px;
