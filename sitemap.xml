@@ -15,9 +15,16 @@
   </url>
 
   <url>
+    <loc>https://fahimfoysal.pro.bd/art-gallery</loc>
+    <lastmod>2026-05-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
     <loc>https://fahimfoysal.pro.bd/wallpapers</loc>
     <lastmod>2026-02-27</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>biyearly</changefreq>
     <priority>0.7</priority>
   </url>
 
