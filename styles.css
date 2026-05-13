@@ -698,3 +698,37 @@ body {
     border-color 0.3s,
     box-shadow 0.3s;
 }
+
+/* Desktop drag layout only */
+@media (min-width: 992px) {
+  .grid {
+    position: relative;
+  }
+
+  .grid-item {
+    position: absolute;
+  }
+}
+
+/* Mobile/tablet: normal stacked cards, no dragging */
+@media (max-width: 991.98px) {
+  .grid {
+    display: block !important;
+    opacity: 1 !important;
+    position: static !important;
+  }
+
+  .grid-item {
+    width: 100% !important;
+    padding: 8px;
+    position: static !important;
+    transform: none !important;
+    left: auto !important;
+    top: auto !important;
+  }
+
+  .card-custom {
+    height: auto;
+    min-height: 280px;
+  }
+}

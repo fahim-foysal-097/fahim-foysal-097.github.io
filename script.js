@@ -8,7 +8,8 @@ window.addEventListener("scroll", () => {
     document.documentElement.scrollHeight -
     document.documentElement.clientHeight;
   const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
-  document.getElementById("scrollProgress").style.width = scrolled + "%";
+  const bar = document.getElementById("scrollProgress");
+  if (bar) bar.style.width = scrolled + "%";
 });
 
 // Music Controller
@@ -16,42 +17,33 @@ let audio = null;
 const musicBtn = document.getElementById("musicToggle");
 const musicIcon = document.getElementById("musicIcon");
 
-musicBtn.addEventListener("click", () => {
-  // Lazy load only on first click
-  if (!audio) {
-    audio = new Audio("assets/music/music.mp3");
-    audio.loop = true;
-    audio.volume = 0.5;
+if (musicBtn && musicIcon) {
+  musicBtn.addEventListener("click", () => {
+    if (!audio) {
+      audio = new Audio("assets/music/music.mp3");
+      audio.loop = true;
+      audio.volume = 0.5;
+    }
 
-    audio.addEventListener(
-      "ended",
-      function () {
-        this.currentTime = 0;
-        this.play();
-      },
-      false,
-    );
-  }
-
-  // Check the actual state of the audio element instead of tracking boolean
-  if (audio.paused) {
-    audio
-      .play()
-      .then(() => {
-        musicBtn.classList.add("playing");
-        musicIcon.className = "ph-fill ph-speaker-high";
-        musicBtn.setAttribute("title", "Pause Music");
-      })
-      .catch((err) => {
-        console.error("Audio playback failed.", err);
-      });
-  } else {
-    audio.pause();
-    musicBtn.classList.remove("playing");
-    musicIcon.className = "ph-fill ph-music-note";
-    musicBtn.setAttribute("title", "Play Music");
-  }
-});
+    if (audio.paused) {
+      audio
+        .play()
+        .then(() => {
+          musicBtn.classList.add("playing");
+          musicIcon.className = "ph-fill ph-speaker-high";
+          musicBtn.setAttribute("title", "Pause Music");
+        })
+        .catch((err) => {
+          console.error("Audio playback failed.", err);
+        });
+    } else {
+      audio.pause();
+      musicBtn.classList.remove("playing");
+      musicIcon.className = "ph-fill ph-music-note";
+      musicBtn.setAttribute("title", "Play Music");
+    }
+  });
+}
 
 // Tech Ticker Loop
 const tickerContainer = document.getElementById("tech-ticker-container");
@@ -66,6 +58,8 @@ const cursorOutline = document.querySelector("[data-cursor-outline]");
 
 if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
   window.addEventListener("mousemove", (e) => {
+    if (!cursorDot || !cursorOutline) return;
+
     const posX = e.clientX;
     const posY = e.clientY;
 
@@ -84,14 +78,18 @@ if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
   const interactables = document.querySelectorAll(
     "a, button, .grid-item, .navbar-toggler, input",
   );
+
   interactables.forEach((el) => {
     el.addEventListener("mouseenter", () => {
+      if (!cursorOutline) return;
       cursorOutline.style.width = "60px";
       cursorOutline.style.height = "60px";
       cursorOutline.style.backgroundColor = "rgba(0, 243, 255, 0.1)";
       cursorOutline.style.borderColor = "var(--primary)";
     });
+
     el.addEventListener("mouseleave", () => {
+      if (!cursorOutline) return;
       cursorOutline.style.width = "40px";
       cursorOutline.style.height = "40px";
       cursorOutline.style.backgroundColor = "transparent";
@@ -100,31 +98,91 @@ if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
   });
 }
 
-// Packery Grid
-window.onload = function () {
+// --- Responsive Packery / Draggabilly Setup ---
+// Desktop only: draggable masonry layout
+// Mobile/tablet: normal stacked cards
+let packeryInstance = null;
+let draggables = [];
+
+const desktopMQ = window.matchMedia("(min-width: 992px)");
+
+function destroyProjectsLayout() {
   const grid = document.querySelector(".grid");
+  if (!grid) return;
 
-  if (grid) {
-    const pckry = new Packery(grid, {
-      itemSelector: ".grid-item",
-      columnWidth: ".grid-item",
-      percentPosition: true,
-      transitionDuration: "0.4s",
+  if (draggables.length) {
+    draggables.forEach((draggable) => {
+      if (draggable && typeof draggable.destroy === "function") {
+        draggable.destroy();
+      }
     });
-
-    const items = grid.querySelectorAll(".grid-item");
-    for (let i = 0; i < items.length; i++) {
-      let item = items[i];
-      let draggie = new Draggabilly(item);
-      pckry.bindDraggabillyEvents(draggie);
-    }
-
-    pckry.on("layoutComplete", function () {
-      grid.classList.add("loaded");
-    });
-    pckry.layout();
+    draggables = [];
   }
-};
+
+  if (packeryInstance && typeof packeryInstance.destroy === "function") {
+    packeryInstance.destroy();
+  }
+
+  packeryInstance = null;
+
+  const items = grid.querySelectorAll(".grid-item");
+  items.forEach((item) => {
+    item.removeAttribute("style");
+  });
+
+  grid.classList.add("loaded");
+}
+
+function initProjectsLayout() {
+  const grid = document.querySelector(".grid");
+  if (!grid) return;
+
+  // Always clean up first so resize/downsize works correctly
+  destroyProjectsLayout();
+
+  // Mobile/tablet: do NOT initialize Packery/Draggabilly
+  if (!desktopMQ.matches) {
+    return;
+  }
+
+  grid.classList.remove("loaded");
+
+  packeryInstance = new Packery(grid, {
+    itemSelector: ".grid-item",
+    columnWidth: ".grid-item",
+    percentPosition: true,
+    transitionDuration: "0.4s",
+  });
+
+  const items = grid.querySelectorAll(".grid-item");
+  items.forEach((item) => {
+    const draggable = new Draggabilly(item);
+    draggables.push(draggable);
+    packeryInstance.bindDraggabillyEvents(draggable);
+  });
+
+  packeryInstance.on("layoutComplete", function () {
+    grid.classList.add("loaded");
+  });
+
+  packeryInstance.layout();
+}
+
+window.addEventListener("load", initProjectsLayout);
+
+// Rebuild when crossing the breakpoint
+if (desktopMQ.addEventListener) {
+  desktopMQ.addEventListener("change", initProjectsLayout);
+} else if (desktopMQ.addListener) {
+  desktopMQ.addListener(initProjectsLayout);
+}
+
+// Also handle resize just in case responsive mode changes width without firing matchMedia cleanly
+let resizeTimer = null;
+window.addEventListener("resize", () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(initProjectsLayout, 150);
+});
 
 // Scrollspy
 const sections = document.querySelectorAll("section, header, footer");
@@ -155,8 +213,9 @@ document.addEventListener("click", function (e) {
     e.target.closest("button") ||
     e.target.closest("a") ||
     e.target.closest("#terminal-container")
-  )
+  ) {
     return;
+  }
 
   const ripple = document.createElement("div");
   ripple.className = "click-ripple";
@@ -172,7 +231,7 @@ document.addEventListener("click", function (e) {
 });
 
 // --- Fun Stuff: Dynamic Page Title ---
-let originalTitle = document.title;
+const originalTitle = document.title;
 window.addEventListener("visibilitychange", () => {
   if (document.hidden) {
     document.title = "Hey, come back! 😭";
@@ -195,6 +254,7 @@ const konamiCode = [
   "a",
 ];
 let konamiIndex = 0;
+
 document.addEventListener("keydown", (e) => {
   if (
     e.key === konamiCode[konamiIndex] ||
