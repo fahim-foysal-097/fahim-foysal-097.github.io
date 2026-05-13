@@ -648,6 +648,40 @@
       }
     }
 
+    /* Game Modal Styles */
+    .game-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 100000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(8px);
+    }
+
+    .game-modal-overlay.active {
+      display: flex;
+    }
+
+    .game-modal-content {
+      background: var(--bg-800);
+      border: 1px solid var(--primary);
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 0 40px rgba(0, 243, 255, 0.15);
+    }
+
+    #game-canvas {
+      background: #000;
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      display: block;
+    }
+
     /* Smooth transition for hover effects */
     .card-custom,
     .about-img-container {
@@ -684,14 +718,12 @@
   </nav>
 
   <header id="home" class="hero">
-    <div class="container">
-      <h1 class="hero-title glitch-hover">Building Digital<br>Experiences.</h1>
+    <div class="container d-flex flex-column align-items-center text-center">
+      <h1 class="hero-title glitch-hover mb-2">Building Digital<br>Experiences.</h1>
 
-      <div class="w-100 d-flex justify-content-center">
-        <div class="badge rounded-pill mt-2 mb-4 px-3 py-2"
-          style="background: rgba(0, 243, 255, 0.08); color: var(--primary); border: 1px solid var(--primary); font-weight: 700; letter-spacing: 0.5px; backdrop-filter: blur(5px);">
-          Available for New Projects
-        </div>
+      <div class="badge rounded-pill mt-2 mb-4 px-3 py-2"
+        style="background: rgba(0, 243, 255, 0.08); color: var(--primary); border: 1px solid var(--primary); font-weight: 700; letter-spacing: 0.5px; backdrop-filter: blur(5px);">
+        Available for New Projects
       </div>
 
       <p class="hero-subtitle mt-2">
@@ -799,6 +831,18 @@
               <span class="badge rounded-pill badge-tech">Widget</span>
             </div>
           </a>
+        </div>
+
+        <!-- Coming Soon / Ideas -->
+        <div class="grid-item">
+          <div class="card-custom opacity-75" style="border-style: dashed;">
+            <i class="ph ph-dots-three-circle card-icon"></i>
+            <h5>New Ideas</h5>
+            <p>Exploring 3D graphics and low-level engine architecture. More projects dropping soon.</p>
+            <div class="mt-auto">
+              <span class="badge rounded-pill badge-tech">Ongoing</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -908,6 +952,18 @@
     <i class="ph-fill ph-music-note" id="musicIcon"></i>
   </button>
 
+  <!-- Secret Game Modal -->
+  <div id="game-modal" class="game-modal-overlay">
+    <div class="game-modal-content">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="text-primary m-0 font-monospace fs-4">SNAKE.EXE</h3>
+        <button id="close-game" class="btn btn-sm btn-outline-danger font-monospace">X</button>
+      </div>
+      <canvas id="game-canvas" width="400" height="400"></canvas>
+      <div class="mt-3 text-center text-primary font-monospace small">Use Arrow Keys to play.</div>
+    </div>
+  </div>
+
   <script src="https://unpkg.com/packery@2/dist/packery.pkgd.min.js"></script>
   <script src="https://unpkg.com/draggabilly@3/dist/draggabilly.pkgd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -927,41 +983,31 @@
     let audio = null;
     const musicBtn = document.getElementById('musicToggle');
     const musicIcon = document.getElementById('musicIcon');
-    let isPlaying = false;
 
     musicBtn.addEventListener('click', () => {
       // Lazy load only on first click
       if (!audio) {
-        // Using a reliable royalty-free source for demonstration
         audio = new Audio('https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3');
         audio.loop = true;
         audio.volume = 0.5;
 
-        // Handle end of track if loop fails
         audio.addEventListener('ended', function () {
           this.currentTime = 0;
           this.play();
         }, false);
       }
 
-      if (!isPlaying) {
-        // Optimistic UI update
-        isPlaying = true;
-        musicBtn.classList.add('playing');
-        musicIcon.className = 'ph-fill ph-speaker-high';
-        musicBtn.setAttribute('title', 'Pause Music');
-
-        audio.play().catch(err => {
+      // Check the actual state of the audio element instead of tracking boolean
+      if (audio.paused) {
+        audio.play().then(() => {
+          musicBtn.classList.add('playing');
+          musicIcon.className = 'ph-fill ph-speaker-high';
+          musicBtn.setAttribute('title', 'Pause Music');
+        }).catch(err => {
           console.error("Audio playback failed.", err);
-          // If playback fails, revert UI
-          isPlaying = false;
-          musicBtn.classList.remove('playing');
-          musicIcon.className = 'ph-fill ph-music-note';
-          musicBtn.setAttribute('title', 'Play Music');
         });
       } else {
         audio.pause();
-        isPlaying = false;
         musicBtn.classList.remove('playing');
         musicIcon.className = 'ph-fill ph-music-note';
         musicBtn.setAttribute('title', 'Play Music');
@@ -1108,10 +1154,128 @@
         konamiIndex = 0;
       }
     });
-
   </script>
 
   <script>
+    // ==========================================
+    // --- GAMES & TERMINAL LOGIC (SEPARATED) ---
+    // ==========================================
+
+    // --- Snake Game Logic ---
+    const SnakeGame = (function () {
+      const canvas = document.getElementById('game-canvas');
+      const ctx = canvas ? canvas.getContext('2d') : null;
+      const box = 20;
+      let snake = [];
+      let food = {};
+      let score = 0;
+      let d;
+      let gameLoopId;
+
+      if (!canvas) return { init: () => { }, start: () => { }, stop: () => { } };
+
+      function init() {
+        document.addEventListener("keydown", direction);
+        document.getElementById('close-game').addEventListener('click', () => {
+          document.getElementById('game-modal').classList.remove('active');
+          stop();
+        });
+      }
+
+      function direction(event) {
+        if (!document.getElementById('game-modal').classList.contains('active')) return;
+        // Prevent default scrolling for arrow keys while playing
+        if ([37, 38, 39, 40].includes(event.keyCode)) event.preventDefault();
+
+        if (event.keyCode == 37 && d != "RIGHT") d = "LEFT";
+        else if (event.keyCode == 38 && d != "DOWN") d = "UP";
+        else if (event.keyCode == 39 && d != "LEFT") d = "RIGHT";
+        else if (event.keyCode == 40 && d != "UP") d = "DOWN";
+      }
+
+      function spawnFood() {
+        food = {
+          x: Math.floor(Math.random() * 19 + 1) * box,
+          y: Math.floor(Math.random() * 19 + 1) * box
+        };
+      }
+
+      function draw() {
+        ctx.fillStyle = "#000";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        for (let i = 0; i < snake.length; i++) {
+          ctx.fillStyle = (i == 0) ? "#00f3ff" : "rgba(0, 243, 255, 0.5)";
+          ctx.fillRect(snake[i].x, snake[i].y, box, box);
+          ctx.strokeStyle = "#000";
+          ctx.strokeRect(snake[i].x, snake[i].y, box, box);
+        }
+
+        ctx.fillStyle = "#ff0055";
+        ctx.fillRect(food.x, food.y, box, box);
+
+        let snakeX = snake[0].x;
+        let snakeY = snake[0].y;
+
+        if (d == "LEFT") snakeX -= box;
+        if (d == "UP") snakeY -= box;
+        if (d == "RIGHT") snakeX += box;
+        if (d == "DOWN") snakeY += box;
+
+        if (snakeX == food.x && snakeY == food.y) {
+          score++;
+          spawnFood();
+        } else {
+          snake.pop();
+        }
+
+        let newHead = { x: snakeX, y: snakeY };
+
+        if (snakeX < 0 || snakeX >= canvas.width || snakeY < 0 || snakeY >= canvas.height || collision(newHead, snake)) {
+          clearInterval(gameLoopId);
+          ctx.fillStyle = "white";
+          ctx.font = "24px 'Fira Code', monospace";
+          ctx.textAlign = "center";
+          ctx.fillText("GAME OVER", canvas.width / 2, canvas.height / 2);
+          ctx.font = "16px 'Fira Code', monospace";
+          ctx.fillText("Score: " + score, canvas.width / 2, canvas.height / 2 + 30);
+          return;
+        }
+
+        snake.unshift(newHead);
+
+        ctx.fillStyle = "white";
+        ctx.font = "16px monospace";
+        ctx.textAlign = "left";
+        ctx.fillText("Score: " + score, box, 1.5 * box);
+      }
+
+      function collision(head, array) {
+        for (let i = 0; i < array.length; i++) {
+          if (head.x == array[i].x && head.y == array[i].y) return true;
+        }
+        return false;
+      }
+
+      function start() {
+        snake = [];
+        snake[0] = { x: 9 * box, y: 10 * box };
+        score = 0;
+        d = null;
+        spawnFood();
+        if (gameLoopId) clearInterval(gameLoopId);
+        gameLoopId = setInterval(draw, 100);
+      }
+
+      function stop() {
+        if (gameLoopId) clearInterval(gameLoopId);
+      }
+
+      return { init, start, stop };
+    })();
+
+    SnakeGame.init();
+
     // --- Terminal Game Logic ---
     const TerminalGame = (function () {
       const outputDiv = document.getElementById('terminal-output');
@@ -1121,7 +1285,6 @@
       // Game State
       let currentRoom = 'start';
       let inventory = [];
-      let gameActive = true;
 
       // Map Data
       const map = {
@@ -1145,7 +1308,7 @@
       const print = (text, className = '') => {
         const div = document.createElement('div');
         div.className = `terminal-output ${className}`;
-        div.innerHTML = text; // Changed to innerHTML to allow colored ASCII and spans
+        div.innerHTML = text;
         outputDiv.appendChild(div);
         container.scrollTop = container.scrollHeight;
       };
@@ -1198,6 +1361,7 @@
             print("  whoami      - Display user info");
             print("  neofetch    - Display system info");
             print("  hack        - [TARGET] Initiate bypass");
+            print("  game        - Launch secret game module");
             print("  matrix      - Toggle visual interface");
             print("  sudo        - Execute as superuser");
             print("");
@@ -1206,6 +1370,12 @@
             print(" * What happens if you try to delete everything?", "info");
             print(" * Want a spin? Tell me to 'do a barrel roll'.", "info");
             print(" * Use your keyboard keys: Up Up Down Down Left Right Left Right B A", "info");
+            break;
+
+          case 'game':
+            print("Launching secret SNAKE.EXE module...", "success");
+            document.getElementById('game-modal').classList.add('active');
+            SnakeGame.start();
             break;
 
           case 'look':
@@ -1296,7 +1466,6 @@
 
           case 'sudo':
             print("Nice try. This incident will be reported.", "error");
-            // Also trigger a minor visual glitch
             document.body.style.transform = 'translate(2px, 2px)';
             setTimeout(() => document.body.style.transform = 'none', 100);
             break;
