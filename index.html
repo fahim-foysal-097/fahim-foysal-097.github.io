@@ -2,696 +2,26 @@
 <html lang="en" class="scroll-smooth">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Fahim Foysal | Creative Developer</title>
-  <meta name="description" content="Portfolio of Fahim Foysal - Showcasing modern web and mobile applications." />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fahim Foysal | Check out my projects</title>
+  <meta name="description" content="Portfolio of Fahim Foysal - Showcasing modern web and mobile applications.">
+
+  <link rel="icon" href="assets/icon.png" type="image/png">
 
   <!-- External Libraries -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link
     href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap"
-    rel="stylesheet" />
+    rel="stylesheet">
   <!-- Phosphor Icons -->
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <!-- Devicon for Tech Stack Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
 
-  <style>
-    :root {
-      --bg-900: #050505;
-      --bg-800: #0a0a0a;
-      --bg-700: #141414;
-      --text-main: #ffffff;
-      --text-muted: #d1d1d1;
-      --primary: #00f3ff;
-      --secondary: #bd00ff;
-      --accent: #ff0055;
-      --terminal-green: #00ff00;
-      --glass-bg: rgba(255, 255, 255, 0.04);
-      --glass-border: rgba(255, 255, 255, 0.12);
-      --font-display: "Outfit", sans-serif;
-      --font-body: "Inter", sans-serif;
-      --font-mono: "Fira Code", monospace;
-    }
+  <link rel="stylesheet" href="styles.css">
 
-    html {
-      scroll-behavior: smooth;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    /* Only apply custom cursor hiding to mouse-capable devices */
-    @media (hover: hover) and (pointer: fine) {
-      * {
-        cursor: none !important;
-      }
-    }
-
-    body {
-      background-color: var(--bg-900);
-      color: var(--text-main);
-      font-family: var(--font-body);
-      overflow-x: hidden;
-      line-height: 1.8;
-      font-size: 16px;
-    }
-
-    /* Force Bootstrap to use custom primary color */
-    .text-primary {
-      color: var(--primary) !important;
-    }
-
-    .highlight-txt {
-      color: var(--primary);
-      font-weight: 700;
-      text-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
-      background: rgba(0, 243, 255, 0.1);
-      padding: 0 4px;
-      border-radius: 4px;
-    }
-
-    .bg-glow {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      background:
-        radial-gradient(circle at 15% 50%, rgba(189, 0, 255, 0.08), transparent 35%),
-        radial-gradient(circle at 85% 30%, rgba(0, 243, 255, 0.08), transparent 35%);
-      pointer-events: none;
-    }
-
-    .scroll-progress-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      z-index: 10001;
-      background: rgba(0, 0, 0, 0.2);
-    }
-
-    .scroll-progress-bar {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, var(--secondary), var(--primary));
-      box-shadow: 0 0 15px var(--primary);
-      transition: width 0.1s ease-out;
-    }
-
-    .cursor-dot {
-      width: 6px;
-      height: 6px;
-      background-color: var(--primary);
-      border-radius: 50%;
-      position: fixed;
-      pointer-events: none;
-      z-index: 10000;
-      transform: translate(-50%, -50%);
-      box-shadow: 0 0 15px var(--primary);
-    }
-
-    .cursor-outline {
-      width: 40px;
-      height: 40px;
-      border: 1.5px solid rgba(0, 243, 255, 0.4);
-      border-radius: 50%;
-      position: fixed;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s;
-    }
-
-    .music-fab {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 60px;
-      height: 60px;
-      background: rgba(5, 5, 5, 0.8);
-      backdrop-filter: blur(10px);
-      border: 2px solid var(--primary);
-      border-radius: 50%;
-      color: var(--primary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      z-index: 9999;
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
-      scale: 1;
-    }
-
-    .music-fab:hover {
-      scale: 1.1;
-      box-shadow: 0 0 25px rgba(0, 243, 255, 0.5);
-      background: rgba(0, 243, 255, 0.1);
-      color: var(--primary);
-    }
-
-    .music-fab.playing {
-      background: rgba(0, 243, 255, 0.15);
-      color: var(--primary);
-      border-color: var(--primary);
-      animation: pulse-cyan 2s infinite;
-    }
-
-    @keyframes pulse-cyan {
-      0% {
-        box-shadow: 0 0 0 0 rgba(0, 243, 255, 0.5);
-      }
-
-      70% {
-        box-shadow: 0 0 0 20px rgba(0, 243, 255, 0);
-      }
-
-      100% {
-        box-shadow: 0 0 0 0 rgba(0, 243, 255, 0);
-      }
-    }
-
-    .navbar {
-      background: rgba(5, 5, 5, 0.8);
-      backdrop-filter: blur(15px);
-      border-bottom: 1px solid var(--glass-border);
-      padding: 1rem 0;
-    }
-
-    .nav-link {
-      color: var(--text-muted) !important;
-      font-family: var(--font-display);
-      font-weight: 500;
-      transition: color 0.3s;
-    }
-
-    .nav-link:hover,
-    .nav-link.active {
-      color: var(--primary) !important;
-    }
-
-    .section-title {
-      font-family: var(--font-display);
-      font-weight: 800;
-      font-size: 3rem;
-      margin-bottom: 3.5rem;
-      position: relative;
-      color: #fff;
-    }
-
-    .section-title::after {
-      content: '';
-      position: absolute;
-      bottom: -15px;
-      left: 0;
-      width: 80px;
-      height: 4px;
-      background: var(--primary);
-      border-radius: 2px;
-    }
-
-    .hero {
-      padding: 160px 0 80px;
-      text-align: center;
-    }
-
-    .hero-title {
-      font-family: var(--font-display);
-      font-size: clamp(3.5rem, 10vw, 5.5rem);
-      font-weight: 800;
-      background: linear-gradient(to right, #ffffff, #999999);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      line-height: 1.1;
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-subtitle {
-      font-size: 1.25rem;
-      color: var(--text-muted);
-      max-width: 800px;
-      margin: 0 auto 2.5rem;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-    }
-
-    .btn-primary-custom {
-      background: transparent;
-      border: 2px solid var(--primary);
-      color: var(--primary);
-      font-family: var(--font-display);
-      font-weight: 700;
-      padding: 0.8rem 2.2rem;
-      border-radius: 50px;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-size: 0.9rem;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .btn-primary-custom:hover {
-      background: var(--primary);
-      color: var(--bg-900) !important;
-      box-shadow: 0 0 25px rgba(0, 243, 255, 0.4);
-      transform: translateY(-2px);
-    }
-
-    .btn-link-custom {
-      color: #fff;
-      font-family: var(--font-display);
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn-link-custom:hover {
-      color: var(--primary);
-    }
-
-    .tech-ticker {
-      padding: 40px 0;
-      overflow: hidden;
-      background: rgba(255, 255, 255, 0.02);
-      border-top: 1px solid var(--glass-border);
-      border-bottom: 1px solid var(--glass-border);
-      white-space: nowrap;
-      margin-bottom: 60px;
-      display: flex;
-    }
-
-    .ticker-content {
-      display: flex;
-      animation: ticker 30s linear infinite;
-    }
-
-    .tech-item {
-      display: inline-flex;
-      align-items: center;
-      margin-right: 50px;
-      font-family: var(--font-display);
-      font-weight: 600;
-      color: var(--text-muted);
-      font-size: 1.1rem;
-    }
-
-    .tech-item i {
-      font-size: 1.8rem;
-      margin-right: 12px;
-      color: var(--primary);
-    }
-
-    @keyframes ticker {
-      0% {
-        transform: translateX(0);
-      }
-
-      100% {
-        transform: translateX(-50%);
-      }
-    }
-
-    .grid {
-      width: 100%;
-      opacity: 0;
-      transition: opacity 0.5s ease-in;
-    }
-
-    .grid.loaded {
-      opacity: 1;
-    }
-
-    .grid-item {
-      width: 33.333%;
-      padding: 12px;
-    }
-
-    .card-custom {
-      height: 380px;
-      padding: 2.5rem;
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 24px;
-      backdrop-filter: blur(12px);
-      transition: border-color 0.3s, box-shadow 0.3s;
-      display: flex;
-      flex-direction: column;
-      text-decoration: none;
-      color: inherit;
-      position: relative;
-      z-index: 1;
-    }
-
-    .card-custom:hover {
-      border-color: var(--primary);
-      box-shadow: 0 0 30px rgba(0, 243, 255, 0.15);
-    }
-
-    .card-icon {
-      font-size: 2.5rem;
-      color: var(--primary);
-      margin-bottom: 1.5rem;
-    }
-
-    .card-custom h5 {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      color: #fff;
-      font-weight: 700;
-    }
-
-    .card-custom p {
-      font-size: 1rem;
-      color: var(--text-muted);
-      margin-bottom: 1.5rem;
-      flex-grow: 1;
-    }
-
-    .badge-tech {
-      background: rgba(0, 243, 255, 0.05) !important;
-      border: 1px solid rgba(0, 243, 255, 0.3) !important;
-      color: var(--primary) !important;
-      font-weight: 600;
-      padding: 0.5rem 1rem;
-      font-size: 0.85rem;
-      transition: all 0.3s ease;
-    }
-
-    .card-custom:hover .badge-tech {
-      background: rgba(0, 243, 255, 0.15) !important;
-      border-color: var(--primary) !important;
-    }
-
-    .about-section {
-      padding: 120px 0;
-      background: linear-gradient(to bottom, transparent, rgba(189, 0, 255, 0.03), transparent);
-    }
-
-    .about-text {
-      color: #ffffff;
-      font-size: 1.15rem;
-      font-weight: 400;
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-      line-height: 1.9;
-    }
-
-    .about-img-container {
-      position: relative;
-      display: inline-block;
-      margin-bottom: 2rem;
-    }
-
-    .about-img-container img {
-      border: 1px solid var(--glass-border);
-      box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
-    }
-
-    .code-badge {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      padding: 1rem;
-      background-color: var(--bg-800);
-      border: 1px solid var(--glass-border);
-      border-radius: 12px;
-      transform: translate(20%, 20%);
-    }
-
-    /* Terminal Game Styles */
-    .terminal-section {
-      padding: 80px 0;
-      background-color: var(--bg-900);
-    }
-
-    .terminal-container {
-      background-color: var(--bg-700);
-      border: 1px solid var(--glass-border);
-      border-radius: 12px;
-      padding: 20px;
-      font-family: var(--font-mono);
-      color: var(--terminal-green);
-      height: 600px;
-      overflow-y: auto;
-      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
-      position: relative;
-    }
-
-    .terminal-container::before {
-      content: " ";
-      display: block;
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-      z-index: 2;
-      background-size: 100% 2px, 3px 100%;
-      pointer-events: none;
-    }
-
-    .terminal-output {
-      margin-bottom: 10px;
-      white-space: pre-wrap;
-    }
-
-    .terminal-output .error {
-      color: #ff5555;
-    }
-
-    .terminal-output .success {
-      color: #50fa7b;
-    }
-
-    .terminal-output .info {
-      color: #8be9fd;
-    }
-
-    .terminal-output .warning {
-      color: #f1fa8c;
-    }
-
-    .terminal-input-line {
-      display: flex;
-      align-items: center;
-    }
-
-    .terminal-prompt {
-      color: var(--primary);
-      margin-right: 10px;
-      font-weight: bold;
-    }
-
-    .terminal-input {
-      background: transparent;
-      border: none;
-      color: var(--terminal-green);
-      font-family: var(--font-mono);
-      font-size: 1rem;
-      flex-grow: 1;
-      outline: none;
-    }
-
-    .footer {
-      padding: 100px 0 60px;
-      border-top: 1px solid var(--glass-border);
-      text-align: center;
-      min-height: 40vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .copyright-text {
-      color: #ffffff;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      font-size: 0.9rem;
-    }
-
-    .social-link {
-      font-size: 2rem;
-      color: var(--text-muted);
-      margin: 0 15px;
-      transition: all 0.3s;
-      display: inline-block;
-    }
-
-    .social-link:hover {
-      color: var(--primary);
-      transform: translateY(-5px);
-    }
-
-    @media (max-width: 992px) {
-      .grid-item {
-        width: 50%;
-      }
-    }
-
-    @media (max-width: 768px) {
-
-      .cursor-dot,
-      .cursor-outline {
-        display: none;
-      }
-
-      .hero-title {
-        font-size: 3.5rem;
-      }
-
-      .grid-item {
-        width: 100%;
-        padding: 8px;
-      }
-
-      .code-badge {
-        transform: translate(10%, 10%);
-      }
-
-      .terminal-container {
-        height: 400px;
-      }
-    }
-
-    /* --- New Fun Effects --- */
-    .matrix-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 2s ease-in-out;
-    }
-
-    .matrix-canvas.active {
-      opacity: 0.15;
-    }
-
-    .glitch-hover {
-      position: relative;
-      display: inline-block;
-      transition: all 0.2s ease;
-    }
-
-    .glitch-hover:hover {
-      animation: glitch-anim 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
-      color: var(--primary);
-      text-shadow: 2px 2px var(--accent), -2px -2px var(--secondary);
-    }
-
-    @keyframes glitch-anim {
-      0% {
-        transform: translate(0)
-      }
-
-      20% {
-        transform: translate(-2px, 2px)
-      }
-
-      40% {
-        transform: translate(-2px, -2px)
-      }
-
-      60% {
-        transform: translate(2px, 2px)
-      }
-
-      80% {
-        transform: translate(2px, -2px)
-      }
-
-      100% {
-        transform: translate(0)
-      }
-    }
-
-    .spin-animation {
-      animation: spin-page 2s ease-in-out;
-    }
-
-    @keyframes spin-page {
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-
-    /* --- Fun Effects Added --- */
-    .click-ripple {
-      position: absolute;
-      border-radius: 50%;
-      transform: scale(0);
-      animation: ripple 0.6s linear;
-      background: rgba(0, 243, 255, 0.2);
-      border: 1px solid rgba(0, 243, 255, 0.8);
-      pointer-events: none;
-      z-index: 9998;
-    }
-
-    @keyframes ripple {
-      to {
-        transform: scale(4);
-        opacity: 0;
-      }
-    }
-
-    /* Game Modal Styles */
-    .game-modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.85);
-      z-index: 100000;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      backdrop-filter: blur(8px);
-    }
-
-    .game-modal-overlay.active {
-      display: flex;
-    }
-
-    .game-modal-content {
-      background: var(--bg-800);
-      border: 1px solid var(--primary);
-      padding: 24px;
-      border-radius: 12px;
-      box-shadow: 0 0 40px rgba(0, 243, 255, 0.15);
-    }
-
-    #game-canvas {
-      background: #000;
-      border: 1px solid var(--glass-border);
-      border-radius: 8px;
-      display: block;
-    }
-
-    /* Smooth transition for hover effects */
-    .card-custom,
-    .about-img-container {
-      transition: border-color 0.3s, box-shadow 0.3s;
-    }
-  </style>
 </head>
 
 <body>
@@ -727,17 +57,16 @@
 
       <div class="badge rounded-pill mt-2 mb-4 px-3 py-2"
         style="background: rgba(0, 243, 255, 0.08); color: var(--primary); border: 1px solid var(--primary); font-weight: 700; letter-spacing: 0.5px; backdrop-filter: blur(5px);">
-        Available for New Projects
-      </div>
+        Kinda Busy Right Now </div>
 
       <p class="hero-subtitle mt-2">
-        I'm Fahim Foysal, a developer focused on creating clean, functional, and beautiful applications for web and
-        mobile.
+        I'm Fahim Foysal, a developer focused on creating clean, functional, and beautiful applications, games for all
+        kinds of pltforms.
       </p>
 
       <div class="d-flex flex-wrap justify-content-center align-items-center gap-4">
         <a href="#projects" class="btn-primary-custom">View My Work</a>
-        <a href="#terminal" class="btn-link-custom">Play Terminal Game <i class="ph ph-terminal"></i></a>
+        <a href="#terminal" class="btn-link-custom">Use the Terminal <i class="ph ph-terminal"></i></a>
       </div>
     </div>
   </header>
@@ -746,17 +75,18 @@
     <div class="ticker-content" id="tech-ticker-container">
       <div class="tech-item"><i class="devicon-c-plain colored"></i> C</div>
       <div class="tech-item"><i class="devicon-python-plain colored"></i> Python</div>
-      <div class="tech-item"><i class="devicon-linux-plain colored"></i> Linux</div>
-      <div class="tech-item"><i class="devicon-bash-plain colored"></i> Bash</div>
-      <div class="tech-item"><i class="devicon-flutter-plain colored"></i> Flutter</div>
+      <div class="tech-item"><i class="devicon-flask-original"></i> Flask</div>
+      <div class="tech-item"><i class="devicon-linux-plain"></i> Linux</div>
+      <div class="tech-item"><i class="devicon-bash-plain"></i> Bash</div>
       <div class="tech-item"><i class="devicon-dart-plain colored"></i> Dart</div>
-      <div class="tech-item"><i class="devicon-javascript-plain colored"></i> JavaScript</div>
+      <div class="tech-item"><i class="devicon-flutter-plain colored"></i> Flutter</div>
       <div class="tech-item"><i class="devicon-html5-plain colored"></i> HTML</div>
       <div class="tech-item"><i class="devicon-css3-plain colored"></i> CSS</div>
+      <div class="tech-item"><i class="devicon-javascript-plain colored"></i> JavaScript</div>
       <div class="tech-item"><i class="devicon-sqlite-plain colored"></i> SQLite</div>
-      <div class="tech-item"><i class="devicon-flask-original colored"></i> Flask</div>
       <div class="tech-item"><i class="devicon-git-plain colored"></i> Git</div>
-      <div class="tech-item"><i class="devicon-lua-plain colored"></i> Lua</div>
+      <div class="tech-item"><i class="devicon-lua-plain "></i> Lua</div>
+      <div class="tech-item"><i class="devicon-love2d-plain colored"></i> LÖVE 2D</div>
     </div>
   </div>
 
@@ -840,6 +170,17 @@
         <!-- Coming Soon / Ideas -->
         <div class="grid-item">
           <div class="card-custom opacity-75" style="border-style: dashed;">
+            <i class="ph ph-game-controller card-icon"></i>
+            <h5>Games</h5>
+            <p>Learning game development with Lua and LÖVE 2D.</p>
+            <div class="mt-auto">
+              <span class="badge rounded-pill badge-tech">LÖVE 2D</span>
+              <span class="badge rounded-pill badge-tech">Ongoing</span>
+            </div>
+          </div>
+        </div>
+        <div class="grid-item">
+          <div class="card-custom opacity-75" style="border-style: dashed;">
             <i class="ph ph-dots-three-circle card-icon"></i>
             <h5>New Ideas</h5>
             <p>Exploring 3D graphics and low-level engine architecture. More projects dropping soon.</p>
@@ -854,15 +195,15 @@
 
   <section id="terminal" class="terminal-section">
     <div class="container">
-      <h2 class="section-title">Terminal</h2>
+      <h2 class="section-title glitch-hover">Terminal</h2>
       <p class="text-muted mb-4" style="color: #999999 !important;">Type <span
           class="highlight-txt font-monospace">help</span> to
         see available commands
-        and navigate the maze.</p>
+        and find secrets.</p>
 
       <div class="terminal-container" id="terminal-container">
         <div id="terminal-output">
-          <div class="terminal-output info">Initializing Terminal v1.0.0...</div>
+          <div class="terminal-output info">Initializing Terminal v1.3.7...</div>
           <div class="terminal-output info">System ready. You find yourself in a dark digital corridor.</div>
           <div class="terminal-output warning">HINT: Type 'help' to see standard commands, or try finding hidden
             secrets!</div>
@@ -870,7 +211,7 @@
         </div>
         <div class="terminal-input-line">
           <span class="terminal-prompt">guest@fahim:~$</span>
-          <input type="text" id="cmd-input" class="terminal-input" autocomplete="off" spellcheck="false" autofocus>
+          <input type="text" id="cmd-input" class="terminal-input" autocomplete="off" spellcheck="false">
         </div>
       </div>
     </div>
@@ -894,7 +235,8 @@
           <p class="about-text mb-4">
             I'm a passionate developer who loves bridging the gap between logic and design. My journey started with
             curiosity and has grown into a toolkit that spans from <span class="highlight-txt">low-level C
-              programming</span> to <span class="highlight-txt">modern mobile frameworks like Flutter</span>.
+              programming</span> to <span class="highlight-txt">modern mobile frameworks like Flutter</span>. I'm also
+            learning the art of<span class="highlight-txt">game development with Lua and LÖVE 2D.</span>
           </p>
           <p class="about-text mb-5">
             I believe that every project is an opportunity to solve a puzzle. Whether it's optimizing a shell command or
@@ -904,8 +246,8 @@
           <div class="row g-3">
             <div class="col-sm-6">
               <div class="d-flex align-items-center gap-2 about-text">
-                <i class="ph-fill ph-browsers text-primary fs-4"></i>
-                <span>Web Development</span>
+                <i class="ph-fill ph-game-controller text-primary fs-4"></i>
+                <span>Game Development</span>
               </div>
             </div>
             <div class="col-sm-6">
@@ -938,7 +280,7 @@
       <h3 class="mb-4 fw-bold text-white" style="font-family: var(--font-display);">Get In Touch</h3>
       <div class="mb-5">
         <a href="https://github.com/fahim-foysal-097" target="_blank" rel="noopener" class="social-link"><i
-            class="ph-fill ph-github-logo"></i></a>
+            class="ph-fill ph-github-logo glitch-hover"></i></a>
         <a href="#" class="social-link"><i class="ph-fill ph-linkedin-logo"></i></a>
         <a href="#" class="social-link"><i class="ph-fill ph-twitter-logo"></i></a>
         <a href="mailto:hello@fahimfoysal.pro.bd" class="social-link"><i class="ph-fill ph-envelope"></i></a>
@@ -968,635 +310,16 @@
     </div>
   </div>
 
+  <!-- External Scripts -->
   <script src="https://unpkg.com/packery@2/dist/packery.pkgd.min.js"></script>
   <script src="https://unpkg.com/draggabilly@3/dist/draggabilly.pkgd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-  <script>
-    // --- UI Interactions ---
-
-    // Scroll Progress
-    window.addEventListener("scroll", () => {
-      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
-      document.getElementById("scrollProgress").style.width = scrolled + "%";
-    });
-
-    // Music Controller
-    let audio = null;
-    const musicBtn = document.getElementById('musicToggle');
-    const musicIcon = document.getElementById('musicIcon');
-
-    musicBtn.addEventListener('click', () => {
-      // Lazy load only on first click
-      if (!audio) {
-        audio = new Audio('assets/music/music.mp3');
-        audio.loop = true;
-        audio.volume = 0.5;
-
-        audio.addEventListener('ended', function () {
-          this.currentTime = 0;
-          this.play();
-        }, false);
-      }
-
-      // Check the actual state of the audio element instead of tracking boolean
-      if (audio.paused) {
-        audio.play().then(() => {
-          musicBtn.classList.add('playing');
-          musicIcon.className = 'ph-fill ph-speaker-high';
-          musicBtn.setAttribute('title', 'Pause Music');
-        }).catch(err => {
-          console.error("Audio playback failed.", err);
-        });
-      } else {
-        audio.pause();
-        musicBtn.classList.remove('playing');
-        musicIcon.className = 'ph-fill ph-music-note';
-        musicBtn.setAttribute('title', 'Play Music');
-      }
-    });
-
-    // Tech Ticker Loop
-    const tickerContainer = document.getElementById('tech-ticker-container');
-    if (tickerContainer) {
-      const clone = tickerContainer.innerHTML;
-      tickerContainer.innerHTML += clone;
-    }
-
-    // Custom Cursor
-    const cursorDot = document.querySelector("[data-cursor-dot]");
-    const cursorOutline = document.querySelector("[data-cursor-outline]");
-
-    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-      window.addEventListener("mousemove", (e) => {
-        const posX = e.clientX;
-        const posY = e.clientY;
-
-        cursorDot.style.left = `${posX}px`;
-        cursorDot.style.top = `${posY}px`;
-
-        cursorOutline.animate({
-          left: `${posX}px`,
-          top: `${posY}px`
-        }, { duration: 400, fill: "forwards" });
-      });
-
-      const interactables = document.querySelectorAll("a, button, .grid-item, .navbar-toggler, input");
-      interactables.forEach(el => {
-        el.addEventListener("mouseenter", () => {
-          cursorOutline.style.width = "60px";
-          cursorOutline.style.height = "60px";
-          cursorOutline.style.backgroundColor = "rgba(0, 243, 255, 0.1)";
-          cursorOutline.style.borderColor = "var(--primary)";
-        });
-        el.addEventListener("mouseleave", () => {
-          cursorOutline.style.width = "40px";
-          cursorOutline.style.height = "40px";
-          cursorOutline.style.backgroundColor = "transparent";
-          cursorOutline.style.borderColor = "rgba(0, 243, 255, 0.4)";
-        });
-      });
-    }
-
-    // Packery Grid
-    window.onload = function () {
-      const grid = document.querySelector('.grid');
-
-      if (grid) {
-        const pckry = new Packery(grid, {
-          itemSelector: '.grid-item',
-          columnWidth: '.grid-item',
-          percentPosition: true,
-          transitionDuration: '0.4s'
-        });
-
-        const items = grid.querySelectorAll('.grid-item');
-        for (let i = 0; i < items.length; i++) {
-          let item = items[i];
-          let draggie = new Draggabilly(item);
-          pckry.bindDraggabillyEvents(draggie);
-        }
-
-        pckry.on('layoutComplete', function () {
-          grid.classList.add('loaded');
-        });
-        pckry.layout();
-      }
-    };
-
-    // Scrollspy
-    const sections = document.querySelectorAll("section, header, footer");
-    const navLinks = document.querySelectorAll(".nav-link");
-
-    window.addEventListener("scroll", () => {
-      let current = "";
-      sections.forEach((section) => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (window.scrollY >= (sectionTop - sectionHeight / 3)) {
-          current = section.getAttribute("id");
-        }
-      });
-
-      navLinks.forEach((a) => {
-        a.classList.remove("active");
-        if (a.getAttribute("href").includes(current)) {
-          a.classList.add("active");
-        }
-      });
-    });
-
-    // --- Fun Stuff: Click Ripples ---
-    document.addEventListener('click', function (e) {
-      // Avoid rippling on interactive elements
-      if (e.target.closest('button') || e.target.closest('a') || e.target.closest('#terminal-container')) return;
-
-      const ripple = document.createElement('div');
-      ripple.className = 'click-ripple';
-
-      const size = 60;
-      ripple.style.width = ripple.style.height = `${size}px`;
-      ripple.style.left = `${e.pageX - size / 2}px`;
-      ripple.style.top = `${e.pageY - size / 2}px`;
-
-      document.body.appendChild(ripple);
-
-      setTimeout(() => ripple.remove(), 600);
-    });
-
-    // --- Fun Stuff: Dynamic Page Title ---
-    let originalTitle = document.title;
-    window.addEventListener("visibilitychange", () => {
-      if (document.hidden) {
-        document.title = "Hey, come back! 😭";
-      } else {
-        document.title = originalTitle;
-      }
-    });
-
-    // --- Fun Stuff: Konami Code ---
-    const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-    let konamiIndex = 0;
-    document.addEventListener('keydown', (e) => {
-      if (e.key === konamiCode[konamiIndex] || e.key.toLowerCase() === konamiCode[konamiIndex]) {
-        konamiIndex++;
-        if (konamiIndex === konamiCode.length) {
-          konamiIndex = 0;
-          document.body.style.filter = 'hue-rotate(90deg) contrast(1.2)';
-          const btn = document.querySelector('.btn-primary-custom');
-          const oldText = btn ? btn.innerHTML : '';
-          if (btn) btn.innerHTML = 'GOD MODE ACTIVATED';
-
-          setTimeout(() => {
-            document.body.style.filter = 'none';
-            if (btn) btn.innerHTML = oldText;
-          }, 4000);
-        }
-      } else {
-        konamiIndex = 0;
-      }
-    });
-  </script>
-
-  <script>
-    // ==========================================
-    // --- GAMES & TERMINAL LOGIC (SEPARATED) ---
-    // ==========================================
-
-    // --- Snake Game Logic ---
-    const SnakeGame = (function () {
-      const canvas = document.getElementById('game-canvas');
-      const ctx = canvas ? canvas.getContext('2d') : null;
-      const box = 20;
-      let snake = [];
-      let food = {};
-      let score = 0;
-      let d;
-      let gameLoopId;
-      let changingDirection = false;
-
-      if (!canvas) return { init: () => { }, start: () => { }, stop: () => { } };
-
-      function init() {
-        document.addEventListener("keydown", direction);
-
-        document.addEventListener("keydown", (e) => {
-          if (e.key === 'Escape' && document.getElementById('game-modal').classList.contains('active')) {
-            document.getElementById('game-modal').classList.remove('active');
-            stop();
-          }
-        });
-
-        document.getElementById('close-game').addEventListener('click', () => {
-          document.getElementById('game-modal').classList.remove('active');
-          stop();
-        });
-      }
-
-      function direction(event) {
-        if (!document.getElementById('game-modal').classList.contains('active')) return;
-        // Prevent default scrolling for arrow keys while playing
-        if ([37, 38, 39, 40].includes(event.keyCode)) event.preventDefault();
-
-        if (changingDirection) return;
-
-        if (event.keyCode == 37 && d != "RIGHT") { d = "LEFT"; changingDirection = true; }
-        else if (event.keyCode == 38 && d != "DOWN") { d = "UP"; changingDirection = true; }
-        else if (event.keyCode == 39 && d != "LEFT") { d = "RIGHT"; changingDirection = true; }
-        else if (event.keyCode == 40 && d != "UP") { d = "DOWN"; changingDirection = true; }
-      }
-
-      function spawnFood() {
-        food = {
-          x: Math.floor(Math.random() * 19 + 1) * box,
-          y: Math.floor(Math.random() * 19 + 1) * box
-        };
-      }
-
-      function draw() {
-        changingDirection = false;
-        ctx.fillStyle = "#000";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        for (let i = 0; i < snake.length; i++) {
-          ctx.fillStyle = (i == 0) ? "#00f3ff" : "rgba(0, 243, 255, 0.5)";
-          ctx.fillRect(snake[i].x, snake[i].y, box, box);
-          ctx.strokeStyle = "#000";
-          ctx.strokeRect(snake[i].x, snake[i].y, box, box);
-        }
-
-        ctx.fillStyle = "#ff0055";
-        ctx.fillRect(food.x, food.y, box, box);
-
-        let snakeX = snake[0].x;
-        let snakeY = snake[0].y;
-
-        if (d == "LEFT") snakeX -= box;
-        if (d == "UP") snakeY -= box;
-        if (d == "RIGHT") snakeX += box;
-        if (d == "DOWN") snakeY += box;
-
-        if (snakeX == food.x && snakeY == food.y) {
-          score++;
-          spawnFood();
-        } else {
-          snake.pop();
-        }
-
-        let newHead = { x: snakeX, y: snakeY };
-
-        if (snakeX < 0 || snakeX >= canvas.width || snakeY < 0 || snakeY >= canvas.height || collision(newHead, snake)) {
-          clearInterval(gameLoopId);
-          ctx.fillStyle = "white";
-          ctx.font = "24px 'Fira Code', monospace";
-          ctx.textAlign = "center";
-          ctx.fillText("GAME OVER", canvas.width / 2, canvas.height / 2);
-          ctx.font = "16px 'Fira Code', monospace";
-          ctx.fillText("Score: " + score, canvas.width / 2, canvas.height / 2 + 30);
-          return;
-        }
-
-        snake.unshift(newHead);
-
-        ctx.fillStyle = "white";
-        ctx.font = "16px monospace";
-        ctx.textAlign = "left";
-        ctx.fillText("Score: " + score, box, 1.5 * box);
-      }
-
-      function collision(head, array) {
-        for (let i = 0; i < array.length; i++) {
-          if (head.x == array[i].x && head.y == array[i].y) return true;
-        }
-        return false;
-      }
-
-      function start() {
-        snake = [];
-        snake[0] = { x: 9 * box, y: 10 * box };
-        score = 0;
-        d = null;
-        spawnFood();
-        if (gameLoopId) clearInterval(gameLoopId);
-        gameLoopId = setInterval(draw, 100);
-      }
-
-      function stop() {
-        if (gameLoopId) clearInterval(gameLoopId);
-      }
-
-      return { init, start, stop };
-    })();
-
-    SnakeGame.init();
-
-    // --- Terminal Game Logic ---
-    const TerminalGame = (function () {
-      const outputDiv = document.getElementById('terminal-output');
-      const inputField = document.getElementById('cmd-input');
-      const container = document.getElementById('terminal-container');
-
-      // Game State
-      let currentRoom = 'start';
-      let inventory = [];
-      let commandHistory = [];
-      let historyIndex = 0;
-
-      // Map Data
-      const map = {
-        'start': {
-          description: "You are in a dark server room. Servers hum quietly. There is a door to the 'north'.",
-          exits: { 'north': 'hallway' },
-          items: ['usb_drive']
-        },
-        'hallway': {
-          description: "A brightly lit hallway. Doors lead 'south' back to the server room and 'east' to an office.",
-          exits: { 'south': 'start', 'east': 'office' },
-          items: []
-        },
-        'office': {
-          description: "A messy office. There's a computer terminal here. The hallway is to the 'west'.",
-          exits: { 'west': 'hallway' },
-          items: ['keycard']
-        }
-      };
-
-      const print = (text, className = '') => {
-        const div = document.createElement('div');
-        div.className = `terminal-output ${className}`;
-        div.innerHTML = text;
-        outputDiv.appendChild(div);
-        container.scrollTop = container.scrollHeight;
-      };
-
-      const handleCommand = (cmdStr) => {
-        const fullCmd = cmdStr.trim().toLowerCase();
-        const args = fullCmd.split(/\s+/);
-        const command = args[0];
-
-        if (!command) return;
-
-        print(`guest@fahim:~$ ${cmdStr}`);
-
-        // Easter eggs
-        if (fullCmd === 'sudo rm -rf /' || fullCmd === 'sudo rm -rf /*' || fullCmd === 'rm -rf /') {
-          print("WARNING: Root privileges escalated.", "error");
-          print("Initiating system purge...", "error");
-
-          let count = 0;
-          const deleteInterval = setInterval(() => {
-            const files = ['/boot/vmlinuz', '/etc/passwd', '/var/log/syslog', '/home/guest/secrets.txt', 'System32... wait wrong OS'];
-            if (count < files.length) {
-              print(`Deleting ${files[count]}... [OK]`, "warning");
-              count++;
-            } else {
-              clearInterval(deleteInterval);
-              document.getElementById('matrix-canvas').classList.add('active');
-              if (!window.matrixInterval) startMatrix();
-              print("Critical Failure. Entering the Matrix.", "success");
-            }
-          }, 600);
-          return;
-        }
-
-        if (fullCmd === 'do a barrel roll') {
-          document.body.classList.add('spin-animation');
-          setTimeout(() => document.body.classList.remove('spin-animation'), 2000);
-          print("Wheeeeeee!", "success");
-          return;
-        }
-
-        switch (command) {
-          case 'help':
-            print("Available commands:");
-            print("  look        - Inspect current surroundings");
-            print("  go [dir]    - Move (north, south, east, west)");
-            print("  take [item] - Pick up an item");
-            print("  inventory   - Check carried items");
-            print("  clear       - Clear terminal");
-            print("  whoami      - Display user info");
-            print("  neofetch    - Display system info");
-            print("  hack        - [TARGET] Initiate bypass");
-            print("  game        - Launch secret game module");
-            print("  matrix      - Toggle visual interface");
-            print("  sudo        - Execute as superuser");
-            print("");
-            print("--- SECRETS & HINTS ---", "warning");
-            print(" * Try standard linux commands like 'ls' or 'cat'.", "info");
-            print(" * What happens if you try to delete everything?", "info");
-            print(" * Want a spin? Tell me to 'do a barrel roll'.", "info");
-            print(" * Use your keyboard keys: Up Up Down Down Left Right Left Right B A", "info");
-            break;
-
-          case 'game':
-            print("Launching secret SNAKE.EXE module...", "success");
-            document.getElementById('game-modal').classList.add('active');
-            SnakeGame.start();
-            break;
-
-          case 'look':
-            print(map[currentRoom].description, 'info');
-            if (map[currentRoom].items.length > 0) {
-              print(`You see: ${map[currentRoom].items.join(', ')}`, 'warning');
-            }
-            break;
-
-          case 'go':
-            const dir = args[1];
-            if (!dir) {
-              print("Go where? (e.g., 'go north')", 'error');
-            } else if (map[currentRoom].exits[dir]) {
-              currentRoom = map[currentRoom].exits[dir];
-              print(`Moving ${dir}...`);
-              handleCommand('look');
-            } else {
-              print("You can't go that way.", 'error');
-            }
-            break;
-
-          case 'take':
-            const item = args[1];
-            if (!item) {
-              print("Take what?", 'error');
-            } else if (map[currentRoom].items.includes(item)) {
-              inventory.push(item);
-              map[currentRoom].items = map[currentRoom].items.filter(i => i !== item);
-              print(`Picked up ${item}.`, 'success');
-            } else {
-              print("I don't see that here.", 'error');
-            }
-            break;
-
-          case 'inventory':
-            if (inventory.length === 0) {
-              print("You are not carrying anything.");
-            } else {
-              print(`Inventory: ${inventory.join(', ')}`, 'info');
-            }
-            break;
-
-          case 'clear':
-            outputDiv.innerHTML = '';
-            break;
-
-          case 'whoami':
-            print("╭──────────────────────────────────────────╮", "info");
-            print("│ NAME: Fahim Foysal                       │", "success");
-            print("│ ROLE: Creative Developer & Problem Solver│", "success");
-            print("│ CODE: C, Python, Flutter, JS/TS, Bash    │", "warning");
-            print("│ STATUS: Building the future...           │", "info");
-            print("╰──────────────────────────────────────────╯", "info");
-            break;
-
-          case 'neofetch':
-            const art = `<span style="color: var(--primary);">      /\\        </span> guest@fahim-os
-<span style="color: var(--primary);">     /  \\       </span> ------------
-<span style="color: var(--primary);">    /____\\      </span> OS: Quantum Linux x86_64
-<span style="color: var(--primary);">   /      \\     </span> Host: Portfolio-Rig
-<span style="color: var(--primary);">  /        \\    </span> Kernel: 6.9.1-zen
-<span style="color: var(--primary);"> /__________\\   </span> Uptime: 1337 days
-<span style="color: var(--primary);">                </span> Packages: 404 (not found)
-<span style="color: var(--primary);">                </span> Shell: zsh 5.9`;
-            print(art);
-            break;
-
-          case 'hack':
-            const target = args[1] || "the mainframe";
-            print(`Connecting to ${target}...`, "info");
-            setTimeout(() => print("Bypassing firewalls...", "warning"), 1000);
-            setTimeout(() => print("Injecting SQL payloads...", "warning"), 2000);
-            setTimeout(() => print(`Access granted to ${target}. We're in.`, "success"), 3000);
-            break;
-
-          case 'matrix':
-            const cvs = document.getElementById('matrix-canvas');
-            if (cvs.classList.contains('active')) {
-              cvs.classList.remove('active');
-              print("Matrix effect disabled.", "info");
-            } else {
-              cvs.classList.add('active');
-              if (!window.matrixInterval) startMatrix();
-              print("Matrix effect enabled. Follow the white rabbit.", "success");
-            }
-            break;
-
-          case 'sudo':
-            print("Nice try. This incident will be reported.", "error");
-            document.body.style.transform = 'translate(2px, 2px)';
-            setTimeout(() => document.body.style.transform = 'none', 100);
-            break;
-
-          case 'ls':
-            print("total 42");
-            print("drwxr-xr-x 2 root root 4096 Jan 1 1970 secrets");
-            print("-rw-r--r-- 1 user user   42 May 13 03:39 readme.txt");
-            break;
-
-          case 'cat':
-            if (args[1] === 'readme.txt') {
-              print("Welcome to my portfolio! Hope you like the terminal.", "success");
-            } else if (args[1] === 'secrets') {
-              print("cat: secrets: Is a directory", "error");
-            } else {
-              print(`cat: ${args[1] || ''}: No such file or directory`, 'error');
-            }
-            break;
-
-          default:
-            print(`Command not found: ${command}. Type 'help' for a list of commands.`, 'error');
-        }
-      };
-
-      inputField.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter') {
-          const cmd = this.value;
-          this.value = '';
-          if (cmd.trim() !== '') {
-            commandHistory.push(cmd);
-            historyIndex = commandHistory.length;
-          }
-          handleCommand(cmd);
-        } else if (e.key === 'ArrowUp') {
-          e.preventDefault();
-          if (historyIndex > 0) {
-            historyIndex--;
-            this.value = commandHistory[historyIndex];
-          }
-        } else if (e.key === 'ArrowDown') {
-          e.preventDefault();
-          if (historyIndex < commandHistory.length - 1) {
-            historyIndex++;
-            this.value = commandHistory[historyIndex];
-          } else if (historyIndex === commandHistory.length - 1) {
-            historyIndex++;
-            this.value = '';
-          }
-        }
-      });
-
-      container.addEventListener('click', function (e) {
-        // Only focus if the user isn't actively highlighting text
-        if (window.getSelection().toString() === '') {
-          inputField.focus();
-        }
-      });
-
-      return {
-        init: () => {
-          // Initialization done via HTML markup
-        }
-      };
-    })();
-
-    TerminalGame.init();
-
-    // --- Matrix Rain Effect ---
-    function startMatrix() {
-      const canvas = document.getElementById('matrix-canvas');
-      const ctx = canvas.getContext('2d');
-
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-
-      const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$+-*/=%""\'#&_(),.;:?!\\|{}<>[]^~';
-      const fontSize = 16;
-      const columns = canvas.width / fontSize;
-
-      const drops = [];
-      for (let x = 0; x < columns; x++) {
-        drops[x] = 1;
-      }
-
-      window.matrixInterval = setInterval(() => {
-        ctx.fillStyle = 'rgba(5, 5, 5, 0.05)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        ctx.fillStyle = '#0F0'; // Terminal Green
-        ctx.font = fontSize + 'px monospace';
-
-        for (let i = 0; i < drops.length; i++) {
-          const text = letters.charAt(Math.floor(Math.random() * letters.length));
-          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-            drops[i] = 0;
-          }
-          drops[i]++;
-        }
-      }, 33);
-
-      window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        const newColumns = canvas.width / fontSize;
-        for (let x = drops.length; x < newColumns; x++) {
-          drops[x] = 1;
-        }
-      });
-    }
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+
+  <!-- Custom Scripts -->
+  <script src="script.js"></script>
+  <script src="terminal.js"></script>
 </body>
 
 </html>
