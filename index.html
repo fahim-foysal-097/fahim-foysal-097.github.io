@@ -35,6 +35,10 @@
       --font-mono: "Fira Code", monospace;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -441,7 +445,7 @@
       padding: 20px;
       font-family: var(--font-mono);
       color: var(--terminal-green);
-      height: 400px;
+      height: 600px;
       overflow-y: auto;
       box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
       position: relative;
@@ -560,7 +564,7 @@
       }
 
       .terminal-container {
-        height: 300px;
+        height: 400px;
       }
     }
 
@@ -856,7 +860,7 @@
         see available commands
         and navigate the maze.</p>
 
-      <div class="terminal-container" id="terminal-container" onclick="document.getElementById('cmd-input').focus()">
+      <div class="terminal-container" id="terminal-container">
         <div id="terminal-output">
           <div class="terminal-output info">Initializing Terminal v1.0.0...</div>
           <div class="terminal-output info">System ready. You find yourself in a dark digital corridor.</div>
@@ -900,25 +904,25 @@
           <div class="row g-3">
             <div class="col-sm-6">
               <div class="d-flex align-items-center gap-2 about-text">
-                <i class="ph-fill ph-check-circle text-primary fs-4"></i>
+                <i class="ph-fill ph-browsers text-primary fs-4"></i>
                 <span>Web Development</span>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="d-flex align-items-center gap-2 about-text">
-                <i class="ph-fill ph-check-circle text-primary fs-4"></i>
+                <i class="ph-fill ph-device-mobile text-primary fs-4"></i>
                 <span>Mobile Apps</span>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="d-flex align-items-center gap-2 about-text">
-                <i class="ph-fill ph-check-circle text-primary fs-4"></i>
+                <i class="ph-fill ph-cpu text-primary fs-4"></i>
                 <span>Systems Architecture</span>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="d-flex align-items-center gap-2 about-text">
-                <i class="ph-fill ph-check-circle text-primary fs-4"></i>
+                <i class="ph-fill ph-wrench text-primary fs-4"></i>
                 <span>Tool Development</span>
               </div>
             </div>
@@ -975,7 +979,7 @@
     window.addEventListener("scroll", () => {
       const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (winScroll / height) * 100;
+      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
       document.getElementById("scrollProgress").style.width = scrolled + "%";
     });
 
@@ -987,7 +991,7 @@
     musicBtn.addEventListener('click', () => {
       // Lazy load only on first click
       if (!audio) {
-        audio = new Audio('https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3');
+        audio = new Audio('assets/music/music.mp3');
         audio.loop = true;
         audio.volume = 0.5;
 
@@ -1091,7 +1095,7 @@
       sections.forEach((section) => {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.clientHeight;
-        if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
+        if (window.scrollY >= (sectionTop - sectionHeight / 3)) {
           current = section.getAttribute("id");
         }
       });
@@ -1114,8 +1118,8 @@
 
       const size = 60;
       ripple.style.width = ripple.style.height = `${size}px`;
-      ripple.style.left = `${e.clientX - size / 2}px`;
-      ripple.style.top = `${e.clientY - size / 2}px`;
+      ripple.style.left = `${e.pageX - size / 2}px`;
+      ripple.style.top = `${e.pageY - size / 2}px`;
 
       document.body.appendChild(ripple);
 
@@ -1171,11 +1175,20 @@
       let score = 0;
       let d;
       let gameLoopId;
+      let changingDirection = false;
 
       if (!canvas) return { init: () => { }, start: () => { }, stop: () => { } };
 
       function init() {
         document.addEventListener("keydown", direction);
+
+        document.addEventListener("keydown", (e) => {
+          if (e.key === 'Escape' && document.getElementById('game-modal').classList.contains('active')) {
+            document.getElementById('game-modal').classList.remove('active');
+            stop();
+          }
+        });
+
         document.getElementById('close-game').addEventListener('click', () => {
           document.getElementById('game-modal').classList.remove('active');
           stop();
@@ -1187,10 +1200,12 @@
         // Prevent default scrolling for arrow keys while playing
         if ([37, 38, 39, 40].includes(event.keyCode)) event.preventDefault();
 
-        if (event.keyCode == 37 && d != "RIGHT") d = "LEFT";
-        else if (event.keyCode == 38 && d != "DOWN") d = "UP";
-        else if (event.keyCode == 39 && d != "LEFT") d = "RIGHT";
-        else if (event.keyCode == 40 && d != "UP") d = "DOWN";
+        if (changingDirection) return;
+
+        if (event.keyCode == 37 && d != "RIGHT") { d = "LEFT"; changingDirection = true; }
+        else if (event.keyCode == 38 && d != "DOWN") { d = "UP"; changingDirection = true; }
+        else if (event.keyCode == 39 && d != "LEFT") { d = "RIGHT"; changingDirection = true; }
+        else if (event.keyCode == 40 && d != "UP") { d = "DOWN"; changingDirection = true; }
       }
 
       function spawnFood() {
@@ -1201,6 +1216,7 @@
       }
 
       function draw() {
+        changingDirection = false;
         ctx.fillStyle = "#000";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -1285,6 +1301,8 @@
       // Game State
       let currentRoom = 'start';
       let inventory = [];
+      let commandHistory = [];
+      let historyIndex = 0;
 
       // Map Data
       const map = {
@@ -1495,7 +1513,33 @@
         if (e.key === 'Enter') {
           const cmd = this.value;
           this.value = '';
+          if (cmd.trim() !== '') {
+            commandHistory.push(cmd);
+            historyIndex = commandHistory.length;
+          }
           handleCommand(cmd);
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          if (historyIndex > 0) {
+            historyIndex--;
+            this.value = commandHistory[historyIndex];
+          }
+        } else if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          if (historyIndex < commandHistory.length - 1) {
+            historyIndex++;
+            this.value = commandHistory[historyIndex];
+          } else if (historyIndex === commandHistory.length - 1) {
+            historyIndex++;
+            this.value = '';
+          }
+        }
+      });
+
+      container.addEventListener('click', function (e) {
+        // Only focus if the user isn't actively highlighting text
+        if (window.getSelection().toString() === '') {
+          inputField.focus();
         }
       });
 
@@ -1546,6 +1590,10 @@
       window.addEventListener('resize', () => {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+        const newColumns = canvas.width / fontSize;
+        for (let x = drops.length; x < newColumns; x++) {
+          drops[x] = 1;
+        }
       });
     }
   </script>
