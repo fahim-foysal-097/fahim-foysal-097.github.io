@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://fahimfoysal.pro.bd/</loc>
     <lastmod>2026-05-13</lastmod>
@@ -17,7 +17,7 @@
   <url>
     <loc>https://fahimfoysal.pro.bd/physics</loc>
     <lastmod>2026-05-15</lastmod>
-    <changefreq>biyearly</changefreq>
+    <changefreq>yearly</changefreq>
     <priority>1.0</priority>
   </url>
 
@@ -31,7 +31,7 @@
   <url>
     <loc>https://fahimfoysal.pro.bd/wallpapers</loc>
     <lastmod>2026-02-27</lastmod>
-    <changefreq>biyearly</changefreq>
+    <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
 

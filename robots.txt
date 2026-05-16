@@ -3,4 +3,3 @@ Disallow:
 
 # Sitemaps location
 Sitemap: https://fahimfoysal.pro.bd/sitemap.xml
-Sitemap: https://fahimfoysal.pro.bd/trackedify-web/sitemap.xml
