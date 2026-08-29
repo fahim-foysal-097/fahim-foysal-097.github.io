@@ -10,21 +10,21 @@
   <url>
     <loc>https://fahimfoysal.pro.bd/trackedify-web</loc>
     <lastmod>2026-03-01</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>yearly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
     <loc>https://fahimfoysal.pro.bd/physics</loc>
     <lastmod>2026-05-18</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>yearly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
     <loc>https://fahimfoysal.pro.bd/art-gallery</loc>
     <lastmod>2026-05-13</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>yearly</changefreq>
     <priority>1.0</priority>
   </url>
 
@@ -41,4 +41,12 @@
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
+
+    <url>
+    <loc>https://fahimfoysal.pro.bd/lifeline-mc</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
 </urlset>
